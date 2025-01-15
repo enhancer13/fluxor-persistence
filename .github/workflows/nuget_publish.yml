@@ -7,7 +7,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RAW_TAG: ${{ github.event.release.tag_name }}
+
     steps:
+      - name: Set PACKAGE_VERSION
+        run: |
+          if [[ "${RAW_TAG}" == v* && "${RAW_TAG}" != "v" ]]; then
+            PACKAGE_VERSION="${RAW_TAG:1}"
+          else
+            PACKAGE_VERSION="${RAW_TAG}"
+          fi
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -18,19 +30,39 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          dotnet build --configuration Release --no-restore \
+            -p:Version=${{ env.PACKAGE_VERSION }} \
+            -p:AssemblyVersion=${{ env.PACKAGE_VERSION }} \
+            -p:FileVersion=${{ env.PACKAGE_VERSION }}
 
       - name: Test
         run: dotnet test --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack --configuration Release --no-build -o artifacts
+        run: |
+          dotnet pack --configuration Release --no-build \
+            -p:Version=${{ env.PACKAGE_VERSION }} \
+            -p:AssemblyVersion=${{ env.PACKAGE_VERSION }} \
+            -p:FileVersion=${{ env.PACKAGE_VERSION }} \
+            -o artifacts
 
       - name: Publish to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: |
+          dotnet nuget push artifacts/Fluxor.Persistence.${{ env.PACKAGE_VERSION }}.nupkg \
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json

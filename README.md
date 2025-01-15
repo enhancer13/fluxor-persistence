@@ -103,19 +103,7 @@ Contributions are welcome! Feel free to open issues or submit pull requests for 
 
 ## Publishing a New Version
 
-To publish a new version of the library to the NuGet registry:
-
-1. **Get the Current Version:**
-
-    Use `nbgv` (Nerdbank.GitVersioning) to determine the current version:
-   ```bash
-   nbgv get-version
-   ```
-
-2. **Create a GitHub Release:**
-
-    Use version obtained from the previous step to create a new release in the GitHub repository.
-    The `release` event will automatically publish the package to the NuGet registry.
+To publish a new version of the library to the NuGet registry create a new release in the GitHub repository, the `release` event will automatically publish the package.
 
 ## License
 
