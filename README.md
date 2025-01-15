@@ -101,21 +101,28 @@ Check out the following GIF to see state persistence in action within a Blazor W
 
 Contributions are welcome! Feel free to open issues or submit pull requests for improvements and new features.
 
-## Publishing a New Version
+## Releasing a New Library Version
 
-To publish a new version of the library to the NuGet registry:
+To publish an updated version of the library to the NuGet registry, follow these steps:
 
-1. **Get the Current Version:**
+1. **Prepare the Release:**
 
-    Use `nbgv` (Nerdbank.GitVersioning) to determine the current version:
+   Navigate to the `Fluxor.Persistence` directory and prepare the release using the following command:
+
    ```bash
-   nbgv get-version
+   cd src/Fluxor.Persistence
+   nbgv prepare-release
    ```
 
-2. **Create a GitHub Release:**
+2. **Push the Release Branch:**
 
-    Use version obtained from the previous step to create a new release in the GitHub repository.
-    The `release` event will automatically publish the package to the NuGet registry.
+    Pushing the release branch will initiate the GitHub Actions workflow, which will build and publish the package to NuGet. Execute the push command with the appropriate version tag:
+
+    ```bash
+    git push origin release/vx.x
+    ```
+
+    Replace vx.x with the specific version number you are releasing.
 
 ## License
 
