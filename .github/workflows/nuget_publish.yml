@@ -25,7 +25,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --no-restore --no-build
+        run: dotnet test --no-restore
 
       - name: Pack NuGet package
         run: dotnet pack --configuration Release --no-build -o artifacts
