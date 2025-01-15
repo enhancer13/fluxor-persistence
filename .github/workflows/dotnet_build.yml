@@ -118,6 +118,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          .sonar/scanner/dotnet-sonarscanner begin /k:"enhancer13_fluxor-persistence" /o:"enhancer13" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .sonar/scanner/dotnet-sonarscanner begin /k:"enhancer13_fluxor-persistence" /o:"enhancer13" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.exclusions="examples/**"
           dotnet build
           .sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

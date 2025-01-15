@@ -4,7 +4,7 @@
 
 Fluxor.Persistence.Extensions is a seamless extension to [Fluxor](https://github.com/mrpmorris/Fluxor) that introduces state persistence. It allows you to save and restore your application's state using your preferred storage mechanism.
 
-[![android build](https://github.com/enhancer13/fluxor-persistence/actions/workflows/nuget-publish.yml/badge.svg?branch=main)](https://github.com/enhancer13/fluxor-persistence/actions/workflows/nuget-publish.yml?branch=main)
+[![android build](https://github.com/enhancer13/fluxor-persistence/actions/workflows/dotnet_build.yml/badge.svg?branch=main)](https://github.com/enhancer13/fluxor-persistence/actions/workflows/dotnet_build.yml?branch=main)
 
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
@@ -26,7 +26,7 @@ You can install the package via NuGet:
 ```bash
 dotnet add package Fluxor.Persistence.Extensions
 ```
-* [Fluxor.Persistence](https://www.nuget.org/packages/Fluxor.Persistence/) [![NuGet version (Fluxor.Persistence)](https://img.shields.io/nuget/v/Fluxor.Persistence.svg?style=flat-square)](https://www.nuget.org/packages/Fluxor.Persistence/)
+[![NuGet version (Fluxor.Persistence)](https://img.shields.io/nuget/v/Fluxor.Persistence.svg?style=flat-square)](https://www.nuget.org/packages/Fluxor.Persistence/)
 
 ### Configuration
 
