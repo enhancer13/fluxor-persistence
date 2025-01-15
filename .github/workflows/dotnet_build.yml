@@ -11,13 +11,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     permissions:
+      issues: write
       contents: write
       checks: write
-      pull-requests: read
+      pull-requests: write
+
     strategy:
       matrix:
         dotnet-version: ['9.0.x']
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -115,4 +119,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           .sonar/scanner/dotnet-sonarscanner begin /k:"enhancer13_fluxor-persistence" /o:"enhancer13" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build
           .sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
