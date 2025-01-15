@@ -1,0 +1,72 @@
+﻿@page "/weather"
+@inherits FluxorComponent
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates fetching data from the server with persisted filter settings.</p>
+
+<div class="mb-3">
+    <label for="citySelect" class="form-label">Select City:</label>
+    <select id="citySelect" class="form-select" @onchange="OnCityChanged" value="@_WeatherState.Value.SelectedCity">
+        <option>New York</option>
+        <option>London</option>
+        <option>Tokyo</option>
+        <option>Sydney</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Temperature Unit:</label>
+    <div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tempUnit" value="Celsius" checked="@(_WeatherState.Value.TemperatureUnit == TemperatureUnit.Celsius)" @onchange="OnTemperatureUnitChanged" />
+            <label class="form-check-label">Celsius</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tempUnit" value="Fahrenheit" checked="@(_WeatherState.Value.TemperatureUnit == TemperatureUnit.Fahrenheit)" @onchange="OnTemperatureUnitChanged" />
+            <label class="form-check-label">Fahrenheit</label>
+        </div>
+    </div>
+</div>
+
+@if (_WeatherState.Value.IsLoading)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!string.IsNullOrEmpty(_WeatherState.Value.ErrorMessage))
+{
+    <p class="text-danger">@_WeatherState.Value.ErrorMessage</p>
+}
+else if (_WeatherState.Value.Forecasts != null)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temperature (@_WeatherState.Value.TemperatureUnit)</th>
+            <th>Summary</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var forecast in _WeatherState.Value.Forecasts)
+        {
+            <tr>
+                <td>@forecast.Date.ToShortDateString()</td>
+                <td>
+                    @if (_WeatherState.Value.TemperatureUnit == TemperatureUnit.Celsius)
+                    {
+                        @(forecast.TemperatureC + "°C")
+                    }
+                    else
+                    {
+                        @(forecast.TemperatureF + "°F")
+                    }
+                </td>
+                <td>@forecast.Summary</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

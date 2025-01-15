@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Title>Fluxor Persistence</Title>
+    <Authors>Serhii Harmash</Authors>
+    <Copyright>Serhii Harmash</Copyright>
+    <PackageTags>Redux Flux DotNet CSharp</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">True</GeneratePackageOnBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <PackageIcon>enhancer13_nuget_128px.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/enhancer13/fluxor-persistence</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/enhancer13/fluxor-persistence</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage"/>
+    <PackageReference Include="Fluxor"/>
+    <PackageReference Include="SonarAnalyzer.CSharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Fluxor.Persistence.Test"/>
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\LICENSE" Pack="true" PackagePath="\">
+      <Visible>false</Visible>
+    </None>
+    <None Include="..\README.md" Pack="true" PackagePath="\">
+      <Visible>false</Visible>
+    </None>
+    <None Include="..\docs\images\enhancer13_nuget_128px.png">
+      <Pack>True</Pack>
+      <PackagePath>enhancer13_nuget_128px.png</PackagePath>
+      <Link>enhancer13_nuget_128px.png</Link>
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+</Project>
