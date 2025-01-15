@@ -83,7 +83,7 @@ internal sealed class InMemoryPersistenceService : IPersistenceService
 Then, register your custom service:
 
 ```csharp
-builder.Services.AddSingleton<IPersistenceService, InMemoryPersistenceService>();
+builder.Services.AddScoped<IPersistenceService, InMemoryPersistenceService>();
 ```
 
 ## Examples
@@ -100,6 +100,22 @@ Check out the following GIF to see state persistence in action within a Blazor W
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests for improvements and new features.
+
+## Publishing a New Version
+
+To publish a new version of the library to the NuGet registry:
+
+1. **Get the Current Version:**
+
+    Use `nbgv` (Nerdbank.GitVersioning) to determine the current version:
+   ```bash
+   nbgv get-version
+   ```
+
+2. **Create a GitHub Release:**
+
+    Use version obtained from the previous step to create a new release in the GitHub repository.
+    The `release` event will automatically publish the package to the NuGet registry.
 
 ## License
 

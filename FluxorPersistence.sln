@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluxor.Persistence", "Fluxor.Persistence\Fluxor.Persistence.csproj", "{2D7EAD01-CD33-4A66-B6F7-7FC1C31EA6B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluxor.Persistence", "src\Fluxor.Persistence\Fluxor.Persistence.csproj", "{2D7EAD01-CD33-4A66-B6F7-7FC1C31EA6B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluxor.Persistence.Test", "Fluxor.Persistence.Test\Fluxor.Persistence.Test.csproj", "{92373BCA-3757-411B-8F7F-9A606FCC6821}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluxor.Persistence.Test", "test\Fluxor.Persistence.Test\Fluxor.Persistence.Test.csproj", "{92373BCA-3757-411B-8F7F-9A606FCC6821}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{9B3F496B-4DC4-439B-A647-3305FA477234}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,22 +13,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.globalconfig = .globalconfig
 		README.md = README.md
 		.sonarcloud.properties = .sonarcloud.properties
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{2B9D75FA-21C6-479F-9B61-00F9313E0761}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", ".github", "{2B9D75FA-21C6-479F-9B61-00F9313E0761}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{CA277264-67A5-4B9C-920B-F00AEA542769}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
+		github\workflows\dotnet_build.yml = .github\workflows\dotnet_build.yml
+		github\workflows\nuget_publish.yml = .github\workflows\nuget_publish.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{E5447EE2-40CF-4E86-A6F1-85D35607C87D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "examples", "{E5447EE2-40CF-4E86-A6F1-85D35607C87D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluxor.Persistence.Blazor.Wasm", "Examples\Fluxor.Persistence.Blazor.Wasm\Fluxor.Persistence.Blazor.Wasm.csproj", "{72F29E57-EACF-4620-8566-15B0538F04D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluxor.Persistence.Blazor.Wasm", "examples\Fluxor.Persistence.Blazor.Wasm\Fluxor.Persistence.Blazor.Wasm.csproj", "{72F29E57-EACF-4620-8566-15B0538F04D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3D792A9B-4FB2-4B80-A84C-238DE8F6CC2E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{342B46C7-2CB5-4003-B961-547C73823029}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6BDE2E17-7B42-4622-874E-4AC2236457EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DCCD14D3-5712-463A-9226-D80DE3440BF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,5 +61,7 @@ Global
 		{72F29E57-EACF-4620-8566-15B0538F04D7} = {E5447EE2-40CF-4E86-A6F1-85D35607C87D}
 		{3D792A9B-4FB2-4B80-A84C-238DE8F6CC2E} = {9B3F496B-4DC4-439B-A647-3305FA477234}
 		{342B46C7-2CB5-4003-B961-547C73823029} = {3D792A9B-4FB2-4B80-A84C-238DE8F6CC2E}
+		{2D7EAD01-CD33-4A66-B6F7-7FC1C31EA6B3} = {6BDE2E17-7B42-4622-874E-4AC2236457EF}
+		{92373BCA-3757-411B-8F7F-9A606FCC6821} = {DCCD14D3-5712-463A-9226-D80DE3440BF4}
 	EndGlobalSection
 EndGlobal
