@@ -12,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		LICENSE = LICENSE
 		.globalconfig = .globalconfig
 		README.md = README.md
-		.sonarcloud.properties = .sonarcloud.properties
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
@@ -31,6 +30,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3D792A9B-4FB2-4B80-A84C-238DE8F6CC2E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{342B46C7-2CB5-4003-B961-547C73823029}"
+	ProjectSection(SolutionItems) = preProject
+		docs\images\fluxor_persistence_demo.gif = docs\images\fluxor_persistence_demo.gif
+		docs\images\enhancer13_nuget_128px.png = docs\images\enhancer13_nuget_128px.png
+		docs\images\enhancer13_logo_inverted.png = docs\images\enhancer13_logo_inverted.png
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6BDE2E17-7B42-4622-874E-4AC2236457EF}"
 EndProject
