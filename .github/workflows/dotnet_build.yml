@@ -1,0 +1,123 @@
+name: Build, Test and Analyze
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      contents: write
+      checks: write
+      pull-requests: write
+
+    strategy:
+      matrix:
+        dotnet-version: ['9.0.x']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run tests with code coverage
+        run: dotnet test --no-restore --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage"
+        env:
+          CURRENT_DIR: ${{ github.workspace }}
+
+      - name: Combine Coverage Reports
+        uses: danielpalme/ReportGenerator-GitHub-Action@v5.3.11
+        with:
+          reports: "**/*.cobertura.xml"
+          targetdir: "${{ github.workspace }}"
+          reporttypes: "Cobertura"
+          verbosity: "Info"
+          title: "Code Coverage"
+          tag: "${{ github.run_number }}_${{ github.run_id }}"
+
+      - name: Upload Combined Coverage XML
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: ${{ github.workspace }}/Cobertura.xml
+          retention-days: 5
+
+      - name: Publish Code Coverage Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: "Cobertura.xml"
+          badge: true
+          fail_below_min: false
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: false
+          indicators: true
+          output: both
+          thresholds: "10 30"
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/**/TestResults/**/*
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2.18.0
+        if: always()
+        with:
+          trx_files: "${{ github.workspace }}/**/TestResults/**/*.trx"
+
+      - name: Cache SonarQube Cloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache SonarQube Cloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .sonar/scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+
+      - name: Install SonarQube Cloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p .sonar/scanner
+          dotnet tool update dotnet-sonarscanner --tool-path .sonar/scanner
+
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          .sonar/scanner/dotnet-sonarscanner begin /k:"enhancer13_fluxor-persistence" /o:"enhancer13" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build
+          .sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

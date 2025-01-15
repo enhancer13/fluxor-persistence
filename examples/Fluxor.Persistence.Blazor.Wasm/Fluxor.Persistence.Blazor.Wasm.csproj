@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Fluxor.Persistence\Fluxor.Persistence.csproj" />
+      <ProjectReference Include="..\..\src\Fluxor.Persistence\Fluxor.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@
 
 using Fluxor.Persistence.Strategies;
 using Shouldly;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
 
 namespace Fluxor.Persistence.Test.Strategies;
 
@@ -30,7 +31,7 @@ public class PropertyAccessorTests
         {
             Nested = new NestedClass { InnerNestedClass = new InnerNestedClass { Description = "TestDescriptionB" } }
         };
-        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested!.InnerNestedClass!.Description);
+        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested.InnerNestedClass.Description);
 
         // Act
         string? value = accessor.Getter(sample);
@@ -44,7 +45,7 @@ public class PropertyAccessorTests
     {
         // Arrange
         var sample = new SampleClass("TestNameC", 30) { Nested = null };
-        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested!.InnerNestedClass!.Description);
+        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested.InnerNestedClass.Description);
 
         // Act & Assert
         var exception = Should.Throw<InvalidOperationException>(() => accessor.Getter(sample));
@@ -70,7 +71,7 @@ public class PropertyAccessorTests
     {
         // Arrange
         var sample = new SampleClass("TestNameE", 50) { Nested = new NestedClass { InnerNestedClass = new InnerNestedClass { Description = "InitialDescription" } } };
-        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested!.InnerNestedClass!.Description);
+        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested.InnerNestedClass.Description);
 
         // Act
         accessor.Setter(sample, "UpdatedDesc");
@@ -122,7 +123,7 @@ public class PropertyAccessorTests
     {
         // Arrange
         var sample = new SampleClass("TestNameF", 60) { Nested = null };
-        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested!.InnerNestedClass!.Description);
+        var accessor = new PropertyAccessor<SampleClass, string?>(x => x.Nested.InnerNestedClass.Description);
 
         // Act & Assert
         var exception = Should.Throw<InvalidOperationException>(() => accessor.Setter(sample, "NewDesc"));
