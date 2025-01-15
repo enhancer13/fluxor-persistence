@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		LICENSE = LICENSE
 		.globalconfig = .globalconfig
 		README.md = README.md
+		.sonarcloud.properties = .sonarcloud.properties
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{2B9D75FA-21C6-479F-9B61-00F9313E0761}"

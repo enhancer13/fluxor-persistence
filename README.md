@@ -4,6 +4,19 @@
 
 Fluxor.Persistence.Extensions is a seamless extension to [Fluxor](https://github.com/mrpmorris/Fluxor) that introduces state persistence. It allows you to save and restore your application's state using your preferred storage mechanism.
 
+[![android build](https://github.com/enhancer13/fluxor-persistence/actions/workflows/nuget-publish.yml/badge.svg?branch=main)](https://github.com/enhancer13/fluxor-persistence/actions/workflows/nuget-publish.yml?branch=main)
+
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=bugs)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=enhancer13_fluxor-persistence)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=enhancer13_fluxor-persistence&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=enhancer13_navi-home-client)
+
 ## Getting Started
 
 ### Installation

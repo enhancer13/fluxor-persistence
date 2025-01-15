@@ -17,11 +17,8 @@ public static class FluxorPersistenceExtensions
     /// </summary>
     /// <param name="options">The FluxorOptions instance.</param>
     /// <param name="configure">The action to configure persistence.</param>
-    /// <param name="serviceLifetime">The service lifetime for IPersistenceService.</param>
     /// <returns>The modified FluxorOptions instance.</returns>
-    public static FluxorOptions UsePersist(this FluxorOptions options,
-                                           Action<PersistConfigurationBuilder> configure,
-                                           ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
+    public static FluxorOptions UsePersist(this FluxorOptions options, Action<PersistConfigurationBuilder> configure)
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(configure);
@@ -30,10 +27,10 @@ public static class FluxorPersistenceExtensions
         configure(builder);
         PersistConfiguration config = builder.Build();
 
-        ServiceDescriptor? serviceDescriptor = options.Services.FirstOrDefault(sd => sd.ServiceType == typeof(IPersistenceService));
+        ServiceDescriptor? serviceDescriptor = options.Services.FirstOrDefault(x => x.ServiceType == typeof(IPersistenceService));
         if (serviceDescriptor is null)
         {
-            options.Services.Add(new ServiceDescriptor(typeof(IPersistenceService), typeof(PersistenceService), serviceLifetime));
+            options.Services.AddScoped<IPersistenceService, PersistenceService>();
         }
 
         foreach (IPersistenceStrategy strategy in config.Strategies)
