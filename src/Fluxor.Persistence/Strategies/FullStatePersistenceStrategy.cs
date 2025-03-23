@@ -10,6 +10,12 @@ namespace Fluxor.Persistence.Strategies;
 internal sealed class FullStatePersistenceStrategy<TState> : IPersistenceStrategy where TState : class
 {
     private readonly string _StorageKey = typeof(TState).Name;
+    private readonly JsonSerializerOptions _Options;
+
+    public FullStatePersistenceStrategy(JsonSerializerOptions options)
+    {
+        _Options = options;
+    }
 
     public Type StateType => typeof(TState);
 
@@ -22,7 +28,7 @@ internal sealed class FullStatePersistenceStrategy<TState> : IPersistenceStrateg
             return;
         }
 
-        TState? persistedState =  JsonSerializer.Deserialize<TState>(serializedState);
+        TState? persistedState =  JsonSerializer.Deserialize<TState>(serializedState, _Options);
         if (persistedState is not null)
         {
             feature.RestoreState(persistedState);
@@ -34,7 +40,7 @@ internal sealed class FullStatePersistenceStrategy<TState> : IPersistenceStrateg
     public async ValueTask SaveAsync(IFeature feature, IPersistenceService persistenceService, ILogger logger)
     {
         TState state = (TState)feature.GetState();
-        string serializedState = JsonSerializer.Serialize(state);
+        string serializedState = JsonSerializer.Serialize(state, _Options);
         await persistenceService.SetItemAsStringAsync(_StorageKey, serializedState).ConfigureAwait(false);
 
         FluxorLogger.PersistedState(logger, typeof(TState).Name);
