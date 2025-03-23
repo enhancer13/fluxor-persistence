@@ -13,9 +13,11 @@ internal sealed class PropertyPersistenceStrategy<TState, TProperty> : IPersiste
 {
     private readonly PropertyAccessor<TState, TProperty> _PropertyAccessor;
     private readonly string _StorageKey;
+    private readonly JsonSerializerOptions _Options;
 
-    public PropertyPersistenceStrategy(Expression<Func<TState, TProperty>> propertySelector)
+    public PropertyPersistenceStrategy(Expression<Func<TState, TProperty>> propertySelector, JsonSerializerOptions options)
     {
+        _Options = options;
         _PropertyAccessor = new PropertyAccessor<TState, TProperty>(propertySelector);
         _StorageKey = $"{typeof(TState).Name}.{ExpressionHelper.GetPropertyPathString(propertySelector)}";
     }
@@ -32,7 +34,7 @@ internal sealed class PropertyPersistenceStrategy<TState, TProperty> : IPersiste
             return;
         }
 
-        TProperty? value = JsonSerializer.Deserialize<TProperty>(serializedProperty);
+        TProperty? value = JsonSerializer.Deserialize<TProperty>(serializedProperty, _Options);
         _PropertyAccessor.Setter(state, value);
         feature.RestoreState(state);
 
@@ -43,7 +45,7 @@ internal sealed class PropertyPersistenceStrategy<TState, TProperty> : IPersiste
     {
         TState state = (TState)feature.GetState();
         TProperty? value = _PropertyAccessor.Getter(state);
-        string serializedProperty = JsonSerializer.Serialize(value);
+        string serializedProperty = JsonSerializer.Serialize(value, _Options);
         await persistenceService.SetItemAsStringAsync(_StorageKey, serializedProperty).ConfigureAwait(false);
 
         FluxorLogger.PersistedProperty(logger, typeof(TProperty).Name);

@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Text.Json;
 using Fluxor.Persistence.Strategies;
 using Shouldly;
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -13,7 +14,8 @@ public class StatePersistenceBuilderTests
     public void GivenState_WhenAddingPropertyPersistence_ExpectPropertyPersistenceStrategyIsAdded()
     {
         // Arrange
-        var persistConfigurationBuilder = new PersistConfigurationBuilder();
+        var serializerOptions = new JsonSerializerOptions();
+        var persistConfigurationBuilder = new PersistConfigurationBuilder(serializerOptions);
         StatePersistenceBuilder<SampleState> statePersistenceBuilder = persistConfigurationBuilder.ForState<SampleState>();
 
         // Act
@@ -29,7 +31,8 @@ public class StatePersistenceBuilderTests
     public void GivenState_WhenAddingFullStatePersistence_ExpectFullStatePersistenceIsAdded()
     {
         // Arrange
-        var persistConfigurationBuilder = new PersistConfigurationBuilder();
+        var serializerOptions = new JsonSerializerOptions();
+        var persistConfigurationBuilder = new PersistConfigurationBuilder(serializerOptions);
         StatePersistenceBuilder<SampleState> statePersistenceBuilder = persistConfigurationBuilder.ForState<SampleState>();
 
         // Act
@@ -45,7 +48,8 @@ public class StatePersistenceBuilderTests
     public void GivenStateWithFullStatePersistence_WhenAddingPropertyPersistenceForTheSameState_ExpectInvalidOperationException()
     {
         // Arrange
-        var persistConfigurationBuilder = new PersistConfigurationBuilder();
+        var serializerOptions = new JsonSerializerOptions();
+        var persistConfigurationBuilder = new PersistConfigurationBuilder(serializerOptions);
         StatePersistenceBuilder<SampleState> statePersistenceBuilder = persistConfigurationBuilder.ForState<SampleState>();
         statePersistenceBuilder.AddFullStatePersistence();
 
@@ -58,7 +62,8 @@ public class StatePersistenceBuilderTests
     public void GivenStateWithPropertyPersistence_WhenAddingFullStatePersistenceForTheSameState_ExpectInvalidOperationException()
     {
         // Arrange
-        var persistConfigurationBuilder = new PersistConfigurationBuilder();
+        var serializerOptions = new JsonSerializerOptions();
+        var persistConfigurationBuilder = new PersistConfigurationBuilder(serializerOptions);
         StatePersistenceBuilder<SampleState> statePersistenceBuilder = persistConfigurationBuilder.ForState<SampleState>();
         statePersistenceBuilder.AddPropertyPersistence(x => x.Name);
 
@@ -71,7 +76,8 @@ public class StatePersistenceBuilderTests
     public void GivenStateWithParentPropertyPersistence_WhenAddingChildPropertyPersistenceForTheSameState_ExpectInvalidOperationException()
     {
         // Arrange
-        var persistConfigurationBuilder = new PersistConfigurationBuilder();
+        var serializerOptions = new JsonSerializerOptions();
+        var persistConfigurationBuilder = new PersistConfigurationBuilder(serializerOptions);
         StatePersistenceBuilder<SampleState> statePersistenceBuilder = persistConfigurationBuilder.ForState<SampleState>();
         statePersistenceBuilder.AddPropertyPersistence(x => x.Nested);
 
@@ -84,7 +90,8 @@ public class StatePersistenceBuilderTests
     public void GivenStateWithChildPropertyPersistence_WhenAddingParentPropertyPersistenceForTheSameState_ExpectInvalidOperationException()
     {
         // Arrange
-        var persistConfigurationBuilder = new PersistConfigurationBuilder();
+        var serializerOptions = new JsonSerializerOptions();
+        var persistConfigurationBuilder = new PersistConfigurationBuilder(serializerOptions);
         StatePersistenceBuilder<SampleState> statePersistenceBuilder = persistConfigurationBuilder.ForState<SampleState>();
         statePersistenceBuilder.AddPropertyPersistence(x => x.Nested.InnerNested.Name);
 
@@ -97,7 +104,8 @@ public class StatePersistenceBuilderTests
     public void GivenState_WhenAddingMultipleNonOverlappingPropertyPersistences_ExpectAllStrategiesAreAdded()
     {
         // Arrange
-        var persistConfigurationBuilder = new PersistConfigurationBuilder();
+        var serializerOptions = new JsonSerializerOptions();
+        var persistConfigurationBuilder = new PersistConfigurationBuilder(serializerOptions);
         StatePersistenceBuilder<SampleState> statePersistenceBuilder = persistConfigurationBuilder.ForState<SampleState>();
 
         // Act
